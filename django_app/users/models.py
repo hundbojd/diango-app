@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from PIL import Image
+from django.urls import reverse
 
 
 class Profile(models.Model):
@@ -44,6 +45,9 @@ class Profile(models.Model):
                 # already square
                 img.thumbnail((300, 300))
                 img.save(self.image.path)
+
+    def get_absolute_url(self):
+        return reverse('profile', kwargs={'pk': self.pk})
 
 
 def create_profile(sender, instance, created, **kwargs):
