@@ -7,10 +7,16 @@
             <div class="article-metadata">
               <a class="mr-2" href="{% url 'profile' post.author.id %}">{{ post.author }}</a>
               <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
-            </div>
+            </div >
             <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content|truncatewords:20  }}</p>
-              <i><a class="article-content" href="{% url 'post-detail' post.id %}">Read more</a></i>
+
+            {% if user in post.likes.all %}
+                <h6><i><a class="article-content" href="{% url 'post-detail' post.id %}"><span>Read more</span></a></i><span style="float : right;"><a href="{% url 'post-likes' post.id %}"style=color:#33358f><i class="fa-solid fa-heart"></i></a> {{post.number_of_likes}} Likes</span> </h6>
+            {% else %}
+                <h6><i><a class="article-content" href="{% url 'post-detail' post.id %}"><span>Read more</span></a></i><span style="float : right;"><a href="{% url 'post-likes' post.id %}" style=color:#66666e><i class="fa fa-heart-o "></i></a> {{post.number_of_likes}} Likes</span> </h6>
+            {% endif %}
+            </script>
           </div>
         </article>
     {% endfor %}

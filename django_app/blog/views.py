@@ -1,5 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post
+from django.contrib import messages
 from django.views.generic import (ListView,
                                   DetailView,
                                   CreateView,
@@ -65,4 +66,17 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
         if self.request.user == post.author:
             return True
         return False
+
+
+def post_like(request, pk):
+    if request.user.is_authenticated:
+        post = get_object_or_404(Post, id=pk)
+        if post.likes.filter(id=request.user.id):
+            post.likes.remove(request.user)
+        else:
+            post.likes.add(request.user)
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        messages.success(request, 'You must sign in to view this page!')
+        return redirect('login')
 

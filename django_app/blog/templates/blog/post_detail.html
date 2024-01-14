@@ -15,6 +15,11 @@
         </div>
         <h2 class="article-title">{{ object.title }}</h2>
         <p class="article-content">{{ object.content }}</p>
+        {% if user in post.likes.all %}
+          <h6 ><span style="float : right;"><a href="{% url 'post-likes' post.id %}"><&#47;3</a> {{post.number_of_likes}} Likes</span> </h6>
+        {% else %}
+          <h6><span style="float : right;"><a href="{% url 'post-likes' post.id %}"><3</a> {{post.number_of_likes}} Likes</span> </h6>
+        {% endif %}
       </div>
     </article>
 {% endblock content %}

@@ -39,6 +39,11 @@
             </div>
             <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
+            {% if user in post.likes.all %}
+                <h6 ><span style="float : right;"><a href="{% url 'post-likes' post.id %}"style=color:#33358f><i class="fa-solid fa-heart"></i></a> {{post.number_of_likes}} Likes</span> </h6>
+            {% else %}
+                <h6><span style="float : right;"><a href="{% url 'post-likes' post.id %}" style=color:#66666e><i class="fa fa-heart-o "></i></a> {{post.number_of_likes}} Likes</span> </h6>
+            {% endif %}
           </div>
         </article>
       {% endfor %}
