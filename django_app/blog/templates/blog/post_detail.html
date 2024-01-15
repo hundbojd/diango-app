@@ -22,16 +22,23 @@
         {% endif %}
       </div>
     </article>
-<h5>Comments</h5>
-{% if not post.comments.all %}
-  No comments yet.
-{% else%}
-  {% for comment in post.comments.all %}
-    <strong>{{ comment.name }}- {{ comment.date_posted }} </strong>
+<h5>Comments <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'post-comment' post.id %}">Add comment</a></h5>
+<article class="media content-section">
+  <div class="media-body">
+
+     {% if not post.comments.all %}
+        No comments yet...
+     {% else%}
+        {% for comment in post.comments.all %}
+          <strong>{{ comment.name }} - {{ comment.date_posted }} </strong>
+          <br/>
+          {{ comment.content }}
+          <br/>
+        {% endfor %}
+     {% endif %}
     <br/>
-    {{ comment.content }}
-    <br/>
-  {% endfor %}
-{% endif %}
+  </div>
+</article>
+
 <br/><br/>
 {% endblock content %}

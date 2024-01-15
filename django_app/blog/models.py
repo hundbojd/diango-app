@@ -2,7 +2,6 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
-from django.db.models import Count
 
 
 class Post(models.Model):
@@ -11,9 +10,6 @@ class Post(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     likes = models.ManyToManyField(User, related_name='post_like', blank=True)
-
-    def post_length(self):
-        return self.content.annotate(Count(" "))
 
     def number_of_likes(self):
         return self.likes.count()
@@ -32,7 +28,14 @@ class Comments(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     likes = models.ManyToManyField(User, related_name='comment_like', blank=True)
 
+    class Meta:
+        ordering = ('-date_posted',)
+
     def str(self):
-        return f"{self.post.title} - {self.name}"
+        return "%s - %s" % (self.post.title, self.name)
+
+    def number_of_likes(self):
+        return self.likes.count()
+
 
 

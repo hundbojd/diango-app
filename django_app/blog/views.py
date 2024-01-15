@@ -1,13 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post
+from .models import Post, Comments
 from django.contrib import messages
 from django.views.generic import (ListView,
                                   DetailView,
                                   CreateView,
                                   UpdateView,
-                                  DeleteView
+                                  DeleteView,
                                   )
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from .forms import CommentForm
+from django.urls import reverse_lazy
 
 
 def home(request):
@@ -81,5 +83,17 @@ def post_like(request, pk):
         return redirect('login')
 
 
+class CommentCreateView(LoginRequiredMixin, CreateView):
+    model = Comments
+    form_class = CommentForm
+    template_name = 'blog/add_comment.html'
 
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk']
+        return super().form_valid(form)
+
+    def get_success_url(self, **kwargs):
+        pk = self.kwargs['pk']
+        success_url = reverse_lazy('post-detail', kwargs={'pk': pk})
+        return success_url
 
