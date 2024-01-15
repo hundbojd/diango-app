@@ -31,7 +31,7 @@ class Comments(models.Model):
     class Meta:
         ordering = ('-date_posted',)
 
-    def str(self):
+    def __str__(self):
         return "%s - %s" % (self.post.title, self.name)
 
     def number_of_likes(self):
