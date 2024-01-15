@@ -24,3 +24,15 @@ class Post(models.Model):
     def get_absolute_url(self):
         return reverse('post-detail', kwargs={'pk': self.pk})
 
+
+class Comments(models.Model):
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    content = models.TextField()
+    date_posted = models.DateTimeField(default=timezone.now)
+    likes = models.ManyToManyField(User, related_name='comment_like', blank=True)
+
+    def str(self):
+        return f"{self.post.title} - {self.name}"
+
+

@@ -16,10 +16,22 @@
         <h2 class="article-title">{{ object.title }}</h2>
         <p class="article-content">{{ object.content }}</p>
         {% if user in post.likes.all %}
-          <h6 ><span style="float : right;"><a href="{% url 'post-likes' post.id %}"><&#47;3</a> {{post.number_of_likes}} Likes</span> </h6>
+          <h6 ><span style="float : right;"><a href="{% url 'post-likes' post.id %}" style=color:#33358f><i class="fa-solid fa-heart"></i></a> {{post.number_of_likes}} Likes</span> </h6>
         {% else %}
-          <h6><span style="float : right;"><a href="{% url 'post-likes' post.id %}"><3</a> {{post.number_of_likes}} Likes</span> </h6>
+          <h6><span style="float : right;"><a href="{% url 'post-likes' post.id %}" style=color:#66666e><i class="fa fa-heart-o "></i></a> {{post.number_of_likes}} Likes</span> </h6>
         {% endif %}
       </div>
     </article>
+<h5>Comments</h5>
+{% if not post.comments.all %}
+  No comments yet.
+{% else%}
+  {% for comment in post.comments.all %}
+    <strong>{{ comment.name }}- {{ comment.date_posted }} </strong>
+    <br/>
+    {{ comment.content }}
+    <br/>
+  {% endfor %}
+{% endif %}
+<br/><br/>
 {% endblock content %}
