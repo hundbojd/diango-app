@@ -31,8 +31,22 @@ class PostListView(ListView):
     paginate_by = 7
 
 
-class PostDetailView(DetailView):
-    model = Post
+def post_detail(request, pk):
+    post = get_object_or_404(Post, id=pk)
+    comments = post.comments.filter(id=post.id)
+
+    user_comment = None
+
+    if request.method == 'POST':
+        comment_form = CommentForm(request.POST)
+        if comment_form.is_valid():
+            user_comment = comment_form.save(commit=False)
+            user_comment.post = post
+            user_comment.save()
+            return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        comment_form = CommentForm()
+    return render(request, 'blog/post_detail.html', {'post':post, 'comments':user_comment, 'comments':comments, 'comment_form':comment_form})
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):

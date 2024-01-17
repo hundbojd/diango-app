@@ -4,9 +4,10 @@ from .models import Comments
 
 class CommentForm(forms.ModelForm):
     content = forms.CharField(required=True,
-                              widget=forms.widgets.Textarea(attrs={
+                              widget=forms.widgets.TextInput(attrs={
                                    'placeholder': 'Type your comment here...',
-                                   'class': "form-control"
+                                   'class': "form-control",
+                                   'rows': 1
                               }),
                               label='')
 

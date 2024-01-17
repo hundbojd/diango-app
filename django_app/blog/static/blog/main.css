@@ -68,6 +68,18 @@ button.btn.btn-outline-info{
   border-color: #33358f;
 }
 
+.btn.btn-outline-secondary{
+  border: 0;
+  color:#33358f;
+  padding:
+}
+
+button.btn.btn-outline-secondary:hover{
+  border: 0;
+  color: #fafafa;
+  background: #5355b5;
+}
+
 button.btn.btn-outline-info:hover{
   color: #fafafa;
   background: #5355b5;
@@ -141,3 +153,12 @@ a.article-title:hover {
   font-size: 2.5rem;
 }
 
+#comment_form input[type="text"] {
+  margin: 0;
+  vertical-align: top;
+}
+
+.form-control {
+  width:88%
+
+}

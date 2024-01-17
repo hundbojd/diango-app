@@ -1,32 +1,38 @@
 {% extends "blog/base.html" %}
 {% block content %}
     <article class="media content-section">
-      <img class="rounded-circle article-img" src=" {{ object.author.profile.image.url }}">
+      <img class="rounded-circle article-img" src=" {{ post.author.profile.image.url }}">
       <div class="media-body">
         <div class="article-metadata">
-          <a class="mr-2" href="{% url 'profile' object.author.id %}">{{ object.author }}</a>
-          <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
-          {% if object.author == user %}
+          <a class="mr-2" href="{% url 'profile' post.author.id %}">{{ post.author }}</a>
+          <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+          {% if post.author == user %}
           <div>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-edit' object.id%}">Edit</a>
-            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' object.id %}">Delete</a>
+            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-edit' post.id%}">Edit</a>
+            <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'post-delete' post.id %}">Delete</a>
           </div>
           {% endif %}
         </div>
-        <h2 class="article-title">{{ object.title }}</h2>
-        <p class="article-content">{{ object.content }}</p>
+        <h2 class="article-title">{{ post.title }}</h2>
+        <p class="article-content">{{ post.content }}</p>
         {% if user in post.likes.all %}
           <h6><span style="float : right;"><a href="{% url 'post-likes' post.id %}" style=color:#33358f><i class="fa-solid fa-heart"></i></a> {{post.number_of_likes}}</span> </h6>
         {% else %}
           <h6><span style="float : right;"><a href="{% url 'post-likes' post.id %}" style=color:#66666e><i class="fa fa-heart-o "></i></a> {{post.number_of_likes}}</span> </h6>
         {% endif %}
-        <h6>{{post.comments.count}} Comments</h6>
+        <h6>{{post.comments.count}} Comment{{post.comments.count|pluralize}}</h6>
       </div>
     </article>
-<h5>Comments <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'post-comment' post.id %}">Add comment</a></h5>
+<h5>Comments</h5>
 <article class="media content-section">
   <div class="media-body">
 
+     <form method="POST" id="comment_form">
+         {% csrf_token %}
+        <span style="float : right;"><button class="btn btn-outline-secondary" type="'submit"><i class="fa fa-paper-plane-o"></i></button></span>
+         {{comment_form.as_p}}
+
+     </form>
      {% if not post.comments.all %}
         No comments yet...
      {% else%}
@@ -35,9 +41,9 @@
           <br/>
           {{ comment.content }}
             {% if user in comment.likes.all %}
-              <h6 ><span style="float : left;"><a href="{% url 'comment-likes' comment.id %}"  style=color:#33358f><i class="fa-solid fa-heart"></i></a> {{comment.number_of_likes}} Likes</span> </h6>
+              <h6 ><span style="float : left;">{{comment.number_of_likes}} Likes <a href="{% url 'comment-likes' comment.id %}"  style=color:#33358f><i class="fa-solid fa-heart"></i></a></span>  </h6>
             {% else %}
-              <h6><span style="float : left;"><a href="{% url 'comment-likes' comment.id %}" style=color:#66666e><i class="fa fa-heart-o "></i></a> {{comment.number_of_likes}} Likes</span> </h6>
+              <h6><span style="float : left;"> {{comment.number_of_likes}} Likes <a href="{% url 'comment-likes' comment.id %}" style=color:#66666e><i class="fa fa-heart-o "></i></a></span> </h6>
             {% endif %}
           <br/>
         {% endfor %}
