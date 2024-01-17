@@ -16,10 +16,11 @@
         <h2 class="article-title">{{ object.title }}</h2>
         <p class="article-content">{{ object.content }}</p>
         {% if user in post.likes.all %}
-          <h6 ><span style="float : right;"><a href="{% url 'post-likes' post.id %}" style=color:#33358f><i class="fa-solid fa-heart"></i></a> {{post.number_of_likes}} Likes</span> </h6>
+          <h6><span style="float : right;"><a href="{% url 'post-likes' post.id %}" style=color:#33358f><i class="fa-solid fa-heart"></i></a> {{post.number_of_likes}}</span> </h6>
         {% else %}
-          <h6><span style="float : right;"><a href="{% url 'post-likes' post.id %}" style=color:#66666e><i class="fa fa-heart-o "></i></a> {{post.number_of_likes}} Likes</span> </h6>
+          <h6><span style="float : right;"><a href="{% url 'post-likes' post.id %}" style=color:#66666e><i class="fa fa-heart-o "></i></a> {{post.number_of_likes}}</span> </h6>
         {% endif %}
+        <h6>{{post.comments.count}} Comments</h6>
       </div>
     </article>
 <h5>Comments <a class="btn btn-outline-secondary btn-sm mt-1 mb-1" href="{% url 'post-comment' post.id %}">Add comment</a></h5>
