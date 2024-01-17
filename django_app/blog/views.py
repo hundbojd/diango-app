@@ -42,6 +42,7 @@ def post_detail(request, pk):
         if comment_form.is_valid():
             user_comment = comment_form.save(commit=False)
             user_comment.post = post
+            user_comment.name = request.user
             user_comment.save()
             return redirect(request.META.get('HTTP_REFERER'))
     else:
@@ -95,21 +96,6 @@ def post_like(request, pk):
     else:
         messages.success(request, 'You must sign in to do this!')
         return redirect('login')
-
-
-class CommentCreateView(LoginRequiredMixin, CreateView):
-    model = Comments
-    form_class = CommentForm
-    template_name = 'blog/add_comment.html'
-
-    def form_valid(self, form):
-        form.instance.post_id = self.kwargs['pk']
-        return super().form_valid(form)
-
-    def get_success_url(self, **kwargs):
-        pk = self.kwargs['pk']
-        success_url = reverse_lazy('post-detail', kwargs={'pk': pk})
-        return success_url
 
 
 def comment_like(request, pk):

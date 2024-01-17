@@ -96,7 +96,7 @@ button.btn.btn-outline-info:focus{
 
 .content-section {
   background: #ffffff;
-  padding: 10px 20px;
+  padding: 10px 10px;
   border: 1px solid #dddddd;
   border-radius: 3px;
   margin-bottom: 20px;
@@ -143,10 +143,13 @@ a.article-title:hover {
 }
 
 .account-img {
-  height: 125px;
-  width: 125px;
-  margin-right: 20px;
-  margin-bottom: 16px;
+  height: 175px;
+  width: 175px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .account-heading {
@@ -161,4 +164,8 @@ a.article-title:hover {
 .form-control {
   width:88%
 
+}
+
+a.btn.btn-secondary.btn-sm.edit {
+  margin-top: 130px !important;
 }

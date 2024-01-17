@@ -5,7 +5,7 @@
       <div class="media-body">
         <div class="article-metadata">
           <a class="mr-2" href="{% url 'profile' post.author.id %}">{{ post.author }}</a>
-          <small class="text-muted">{{ post.date_posted|date:"F d, Y" }}</small>
+          <small class="text-muted">{{ post.date_posted }}</small>
           {% if post.author == user %}
           <div>
             <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'post-edit' post.id%}">Edit</a>
@@ -37,7 +37,7 @@
         No comments yet...
      {% else%}
         {% for comment in post.comments.all %}
-          <strong>{{ comment.name }} - {{ comment.date_posted }} </strong>
+          <strong>{{ comment.name }} </strong> - <small class="text-muted">{{ comment.date_posted }}</small>
           <br/>
           {{ comment.content }}
             {% if user in comment.likes.all %}

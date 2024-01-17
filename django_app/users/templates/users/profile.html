@@ -5,6 +5,7 @@
     <div class="media">
       <img class="rounded-circle account-img" src="{{ profile.user.profile.image.url }}">
       <div class="media-body">
+       <div class="col-md-12">
         <h2 class="account-heading">{{ profile.user.username }}</h2>
         <p class="text-secondary">{{ profile.user.email }}</p>
         {% if profile.user.profile.social %}
@@ -13,16 +14,17 @@
         {% if profile.user.profile.city %}
         <p class="text-secondary">City: {{ profile.user.profile.city }}</p>
         {% endif %}
+        {% if profile.user.profile.bio %}
+          <q class="text-secondary">{{ profile.user.profile.bio }}</q>
+        {% endif %}
       </div>
-      {% if profile.user == user %}
-          <div>
-            <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'profile-edit' user.id %}">Edit</a>
-          </div>
-      {% endif %}
     </div>
-    {% if profile.user.profile.bio %}
-    <q class="text-secondary">{{ profile.user.profile.bio }}</q>
+    {% if profile.user == user %}
+      <div>
+        <span style="float : right;"><a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'profile-edit' user.id %}">Edit</a></span>
+      </div>
     {% endif %}
+    </div>
   </div>
     {% if posts %}
       {% for post in page_obj %}
@@ -68,3 +70,5 @@
       </div>
     {% endif %}
 {% endblock content %}
+
+
