@@ -10,11 +10,11 @@
             </div >
             <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content|truncatewords:20  }}</p>
-
+            <div name="{{post.id}}"></div>
             {% if user in post.likes.all %}
-                <h6><i><a class="article-content" href="{% url 'post-detail' post.id %}"><span>Read more</span></a></i><span style="float : right;"><a href="{% url 'post-likes' post.id %}" style=color:#33358f><i class="fa-solid fa-heart"></i></a> {{post.number_of_likes}} Likes</span> </h6>
+                <h6><i><a class="article-content" href="{% url 'post-detail' post.id %}"><span>Read more</span></a></i><span style="float : right;"><a href="{% url 'post-likes' post.id %}#{{post.id}}" style=color:#33358f><i class="fa-solid fa-heart"></i></a> {{post.number_of_likes}} Likes</span> </h6>
             {% else %}
-                <h6><i><a class="article-content" href="{% url 'post-detail' post.id %}"><span>Read more</span></a></i><span style="float : right;"><a href="{% url 'post-likes' post.id %}" style=color:#66666e><i class="fa fa-heart-o "></i></a> {{post.number_of_likes}} Likes</span> </h6>
+                <h6><i><a class="article-content" href="{% url 'post-detail' post.id %}"><span>Read more</span></a></i><span style="float : right;"><a href="{% url 'post-likes' post.id %}#{{post.id}}" style=color:#66666e><i class="fa fa-heart-o "></i></a> {{post.number_of_likes}} Likes</span> </h6>
             {% endif %}
             </script>
           </div>
@@ -22,7 +22,7 @@
     {% endfor %}
     {% if is_paginated %}
         {% if page_obj.has_previous %}
-            <a class='btn btn-outline-info mb-4' href="?page=1">first</a>
+            <a class='btn btn-outline-info mb-4' color="#33358f" href="?page=1">first</a>
             <a class='btn btn-outline-info mb-4' href="?page={{page_obj.previous_page_number}}">previous</a>
         {% endif %}
         {% for num in page_obj.paginator.page_range %}

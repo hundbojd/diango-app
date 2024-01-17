@@ -33,6 +33,11 @@
           <strong>{{ comment.name }} - {{ comment.date_posted }} </strong>
           <br/>
           {{ comment.content }}
+            {% if user in comment.likes.all %}
+              <h6 ><span style="float : left;"><a href="{% url 'comment-likes' comment.id %}"  style=color:#33358f><i class="fa-solid fa-heart"></i></a> {{comment.number_of_likes}} Likes</span> </h6>
+            {% else %}
+              <h6><span style="float : left;"><a href="{% url 'comment-likes' comment.id %}" style=color:#66666e><i class="fa fa-heart-o "></i></a> {{comment.number_of_likes}} Likes</span> </h6>
+            {% endif %}
           <br/>
         {% endfor %}
      {% endif %}

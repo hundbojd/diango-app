@@ -79,7 +79,7 @@ def post_like(request, pk):
             post.likes.add(request.user)
         return redirect(request.META.get('HTTP_REFERER'))
     else:
-        messages.success(request, 'You must sign in to view this page!')
+        messages.success(request, 'You must sign in to do this!')
         return redirect('login')
 
 
@@ -97,3 +97,16 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         success_url = reverse_lazy('post-detail', kwargs={'pk': pk})
         return success_url
 
+
+def comment_like(request, pk):
+    if request.user.is_authenticated:
+        comment = get_object_or_404(Comments, id=pk)
+        print(2)
+        if comment.likes.filter(id=request.user.id):
+            comment.likes.remove(request.user)
+        else:
+            comment.likes.add(request.user)
+        return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        messages.success(request, 'You must sign in to do this!')
+        return redirect('login')

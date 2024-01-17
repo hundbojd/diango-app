@@ -1,11 +1,19 @@
 body {
   background: #fafafa;
-  color: #333333;
+  color: #444444;
   margin-top: 5rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
   color: #444444;
+}
+
+a {
+  color: #494be3;
+}
+
+a:hover {
+  color: #33358f;
 }
 
 ul {
@@ -28,6 +36,52 @@ ul {
   font-weight: 500;
 }
 
+.site-header .navbar-nav button:focus {
+  outline: none;
+}
+
+a.btn.btn-info{
+  background: #33358f;
+  border-color: #33358f;
+}
+
+a.btn.btn-outline-info{
+  color: #33358f;
+  border-color: #33358f;
+}
+
+a.btn.btn-outline-info:hover{
+  color: #fafafa;
+  background: #5355b5;
+  border-color: #5355b5;
+}
+
+a.btn.btn-outline-info:focus{
+  color: #fafafa;
+  background: #5355b5;
+  border-color: #5355b5;
+  outline: none;
+}
+
+button.btn.btn-outline-info{
+  color: #33358f;
+  border-color: #33358f;
+}
+
+button.btn.btn-outline-info:hover{
+  color: #fafafa;
+  background: #5355b5;
+  border-color: #5355b5;
+}
+
+button.btn.btn-outline-info:focus{
+  color: #fafafa;
+  background-color: #5355b5;
+  border-color: #5355b5;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(21, 156, 228, 0.4);
+}
+
 .content-section {
   background: #ffffff;
   padding: 10px 20px;
@@ -36,12 +90,16 @@ ul {
   margin-bottom: 20px;
 }
 
+a.mr-2:hover {
+  color: #33358f;
+}
+
 .article-title {
   color: #444444;
 }
 
 a.article-title:hover {
-  color: #5356ed;
+  color: #33358f;
   text-decoration: none;
 }
 
