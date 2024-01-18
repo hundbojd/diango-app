@@ -41,9 +41,9 @@
           <br/>
           {{ comment.content }}
             {% if user in comment.likes.all %}
-              <h6 ><span style="float : left;">{{comment.number_of_likes}} Likes <a href="{% url 'comment-likes' comment.id %}"  style=color:#33358f><i class="fa-solid fa-heart"></i></a></span>  </h6>
+              <h6 ><span style="float : left;">{{comment.number_of_likes}} <a href="{% url 'comment-likes' comment.id %}"  style=color:#33358f><i class="fa-solid fa-heart"></i></a></span>  </h6>
             {% else %}
-              <h6><span style="float : left;"> {{comment.number_of_likes}} Likes <a href="{% url 'comment-likes' comment.id %}" style=color:#66666e><i class="fa fa-heart-o "></i></a></span> </h6>
+              <h6><span style="float : left;"> {{comment.number_of_likes}} <a href="{% url 'comment-likes' comment.id %}" style=color:#66666e><i class="fa fa-heart-o "></i></a></span> </h6>
             {% endif %}
           <br/>
         {% endfor %}
